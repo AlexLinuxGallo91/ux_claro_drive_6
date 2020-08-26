@@ -4,11 +4,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+
 from src.step_evaluaciones import constantes_evaluaciones_claro_drive
 from src.utils.utils_evaluaciones import UtilsEvaluaciones
 from src.utils.utils_html import ValidacionesHtml
@@ -83,7 +81,7 @@ class EvaluacionesClaroDriveSteps:
                 webdriver_test_ux, 120, class_name='button-create-resource')
 
             jsonEval = UtilsEvaluaciones.establecer_output_status_step(jsonEval, 1, 0, True,
-                constantes_evaluaciones_claro_drive.MSG_OUTPUT_INICIO_SESION_EXITOSO)
+                constantes_evaluaciones_claro_drive.MSG_OUTPUT_INICIO_SESION_SIN_EXITO)
 
         except ElementNotInteractableException as e:
             msg_output = constantes_evaluaciones_claro_drive.MSG_OUTPUT_INICIO_SESION_SIN_EXITO. \
@@ -353,10 +351,6 @@ class EvaluacionesClaroDriveSteps:
 
                             boton_borrar_archivo.click()
                             break
-
-            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
-                webdriver_test_ux, 17, xpath='//span[@class="name-without-extension"][text()="{} "]'.format(
-                    nombre_archivo_sin_ext))
 
             HtmlActions.webdriver_wait_until_not_presence_of_element_located(
                 webdriver_test_ux, 14, xpath='//div[@class="row type-success"]')
